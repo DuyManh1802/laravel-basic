@@ -23,30 +23,30 @@ class Category extends Model
 
     public function allCategory()
     {
-        $category = DB::select('SELECT * fROM '.$this->table.' ORDER BY created_at DESC');
+        $category = DB::select('SELECT * fROM ' . $this->table . ' ORDER BY created_at DESC');
 
         return $category;
     }
 
     public function addCategory($data)
     {
-        DB::insert('INSERT INTO '.$this->table.' (category_name, created_at) values (?, ?)', $data);
+        DB::insert('INSERT INTO ' . $this->table . ' (category_name, created_at) values (?, ?)', $data);
     }
 
     public function findID($id)
     {
-        return DB::select('SELECT id FROM '.$this->table.' WHERE id = ?', [$id]);
+        return DB::select('SELECT id FROM ' . $this->table . ' WHERE id = ?', [$id]);
     }
 
     public function updateCategory($data, $id)
     {
         $data[] = $id;
 
-        return DB::update('UPDATE '.$this->table.' SET category_name = ?, updated_at = ?', $data);
+        return DB::update('UPDATE ' . $this->table . ' SET category_name = ?, updated_at = ?', $data);
     }
 
     public function deleteCategory($id)
     {
-        return DB::delete('DELETE FROM '.$this->table.' WHERE id = ?', [$id]);
+        return DB::delete('DELETE FROM ' . $this->table . ' WHERE id = ?', [$id]);
     }
 }

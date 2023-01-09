@@ -46,30 +46,30 @@ class User extends Authenticatable
 
     public function allUser()
     {
-        $users = DB::select('SELECT * fROM '.$this->table.' ORDER BY created_at DESC');
+        $users = DB::select('SELECT * fROM ' . $this->table . ' ORDER BY created_at DESC');
 
         return $users;
     }
 
     public function addUser($data)
     {
-        DB::insert('INSERT INTO '.$this->table.' (name, email, password, created_at) values (?, ?, ?, ?)', $data);
+        DB::insert('INSERT INTO ' . $this->table . ' (name, email, password, created_at) values (?, ?, ?, ?)', $data);
     }
 
     public function findId($id)
     {
-        return DB::select('SELECT * FROM '.$this->table.' WHERE id = ?', [$id]);
+        return DB::select('SELECT * FROM ' . $this->table . ' WHERE id = ?', [$id]);
     }
 
     public function updateUser($data, $id)
     {
         $data[] = $id;
 
-        return DB::update('UPDATE '.$this->table.' SET name = ?, email = ?, updated_at = ? WHERE id = ?', $data);
+        return DB::update('UPDATE ' . $this->table . ' SET name = ?, email = ?, updated_at = ? WHERE id = ?', $data);
     }
 
     public function deleteUser($id)
     {
-        return DB::delete('DELETE FROM '.$this->table.' WHERE id = ?', [$id]);
+        return DB::delete('DELETE FROM ' . $this->table . ' WHERE id = ?', [$id]);
     }
 }
