@@ -32,7 +32,9 @@
             ]);
 
             $data = [
-                'category_name' =>$request->category_name,
+                $request->category_name,
+                date('Y-m-d H:i:s')
+
             ];
             $this->categories->addCategory($data);
             return redirect()->route('category.index')->with('success', 'Created successfully!');

@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\DB;
 class Item extends Model
 {
     use HasFactory;
+
     protected $table = 'item';
+
     protected $fillable = [
         'item_name',
         'category_id',
@@ -22,28 +24,28 @@ class Item extends Model
 
     public function allItem()
     {
-        $item = DB::select('SELECT * fROM item ORDER BY created_at DESC');
+        $item = DB::select('SELECT * fROM '.$this->table.' ORDER BY created_at DESC');
         return $item;
     }
 
     public function addItem($data)
     {
-        DB::insert('INSERT INTO item (name, email, password, created_at) values (?, ?, ?, ?)', $data);
+        DB::insert('INSERT INTO '.$this->table.' (name, email, password, created_at) values (?, ?, ?, ?)', $data);
     }
 
     public function findID($id)
     {
-        return DB::select('SELECT * FROM item WHERE id = ?', [$id]);
+        return DB::select('SELECT id FROM '.$this->table.' WHERE id = ?', [$id]);
     }
 
     public function updateItem($data, $id)
     {
         $data[] = $id;
-        return DB::update('UPDATE item SET name = ?, updated_at = ?', $data);
+        return DB::update('UPDATE '.$this->table.' SET name = ?, updated_at = ?', $data);
     }
 
     public function deleteItem($id)
     {
-        return DB::delete('DELETE item WHERE id = ?', $id);
+        return DB::delete('DELETE FROM '.$this->table.' WHERE id = ?', $id);
     }
 }

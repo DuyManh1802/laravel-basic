@@ -30,7 +30,7 @@
         public function store(Request $request)
         {
             $this->validate($request, [
-                'name' =>'required|string|max:255',
+                'name' => 'required|string|max:255',
                 'email' => 'required|string|unique:users|email',
                 'password' => 'min:8|string|max:32|confirmed',
             ]);
@@ -48,27 +48,29 @@
 
         public function edit($id)
         {
-            $users = $this->user->findID($id);
+            $users = $this->user->findId($id);
             return view('user.edit', compact('users'));
         }
 
         public function update(Request $request, $id)
         {
             $this->validate($request, [
-                'name' =>'required',
+                'name' =>'required|string|max:255',
+                'email' => 'required|string|unique:users|email',
             ]);
             $data = [
-                'name' => $request->name,
+                $request->name,
+                $request->email,
                 date('Y-m-d H:i:s')
             ];
             $this->user->updateUser($data, $id);
-            return redirect()->route('user.list')->with('success', 'Updated successfully!');
+            return back()->with('success', 'Updated successfully!');
         }
 
         public function delete($id)
         {
             $this->user->deleteUser($id);
-            return redirect()->route('user.list')->with('success', 'Deleted successfully!' );
+            return back()->with('success', 'Deleted successfully!' );
         }
     }
 ?>

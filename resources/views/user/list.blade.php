@@ -18,12 +18,12 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>
-                    <a href="{{ route('user.changePassword', $user->id) }}"><button type="button"
-                            class="btn btn-primary btn-sm">Change Password</button></a>
+                    <a href="{{ route('user.edit', ['id'=>$user->id]) }}"><button type="button"
+                            class="btn btn-primary btn-sm">Edit</button></a>
                 </td>
                 <td>
-                    <a href="{{ route('user.delete', $user->id) }}" onclick="return myFunction();"><button type="button"
-                            class="btn btn-primary btn-sm">Delete</button></a>
+                    <a href="{{ route('user.delete', ['id'=>$user->id]) }}" onclick="return myFunction();"><button
+                            type="button" class="btn btn-primary btn-sm">Delete</button></a>
                 </td>
             </tr>
             @endforeach

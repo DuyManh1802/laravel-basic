@@ -8,12 +8,13 @@
             <form method="POST" action="{{ route('user.update') }}">
                 @csrf
                 @method('put')
+                @foreach ($users as $item)
                 <div class="row mb-3">
                     <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
                     <div class="col-md-6">
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                            name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            name="name" value="{{ $item->name }}" required autocomplete="name" autofocus>
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -27,7 +28,7 @@
 
                     <div class="col-md-6">
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                            name="email" value="{{ old('email') }}">
+                            name="email" value="{{ $item->email }}">
 
                         @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -36,6 +37,7 @@
                         @enderror
                     </div>
                 </div>
+                @endforeach
 
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">

@@ -34,8 +34,9 @@
             ]);
 
             $data = [
-                'item_name' =>$request->item_name,
-                'category_id'=>$request->category_id,
+                $request->item_name,
+                $request->category_id,
+                date('Y-m-d H:i:s')
             ];
             $this->items->addItem($data);
             return redirect()->route('item.index')->with('success', 'Created successfully!' );

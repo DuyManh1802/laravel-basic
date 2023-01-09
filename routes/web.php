@@ -30,10 +30,8 @@ Route::prefix('users')->group( function() {
     Route::get('create', [UserController::class, 'create'])->name('user.create');
     Route::post('store', [UserController::class, 'store'])->name('user.store');
     Route::get('edit/{id}', [UserController::class, 'edit'])->name('user.edit');
-    Route::put('update/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::put('update', [UserController::class, 'update'])->name('user.update');
     Route::get('delete/{id}', [UserController::class, 'delete'])->name('user.delete');
-    Route::get('changePassword/{id}', [UserController::class, 'changePassword'])->name('user.changePassword');
-    Route::put('postChangePassword/{id}', [UserController::class, 'changePasswordSave'])->name('user.postChangePassword');
 });
 
 Route::prefix('categories')->group( function() {
@@ -41,7 +39,7 @@ Route::prefix('categories')->group( function() {
     Route::get('create', [CategoryController::class, 'create'])->name('category.create');
     Route::post('store', [CategoryController::class, 'store'])->name('category.store');
     Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
-    Route::put('update/{id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::put('update', [CategoryController::class, 'update'])->name('category.update');
     Route::get('delete/{id}', [CategoryController::class, 'delete'])->name('category.delete');
 });
 
@@ -50,6 +48,6 @@ Route::prefix('items')->group( function() {
     Route::get('create', [ItemController::class, 'create'])->name('item.create');
     Route::post('store', [ItemController::class, 'store'])->name('item.store');
     Route::get('edit/{id}', [ItemController::class, 'edit'])->name('item.edit');
-    Route::put('update/{id}', [ItemController::class, 'update'])->name('item.update');
+    Route::put('update', [ItemController::class, 'update'])->name('item.update');
     Route::get('delete/{id}', [ItemController::class, 'delete'])->name('item.delete');
 });
