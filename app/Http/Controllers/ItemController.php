@@ -8,9 +8,15 @@
 
     class ItemController extends Controller
     {
+        private $items;
+
+        public function __construct()
+        {
+            $this->items = new item();
+        }
         public function index()
         {
-            $items = item::all();
+            $items = $this->items->allItem();
             return view('item.list', compact('items'));
         }
 
@@ -27,16 +33,17 @@
                 'category_id' =>'required',
             ]);
 
-            item::create([
+            $data = [
                 'item_name' =>$request->item_name,
                 'category_id'=>$request->category_id,
-            ]);
+            ];
+            $this->items->addItem($data);
             return redirect()->route('item.index')->with('success', 'Created successfully!' );
         }
 
         public function edit($id)
         {
-            $items = item::find($id);
+            $items = $this->items->findID($id);
             return view('item.edit', compact('items'));
         }
 
@@ -46,15 +53,16 @@
                 'item_name' =>'required'
             ]);
 
-            item::where('id', $id)->update([
+            $data = [
                 'item_name' =>$request->item_name,
-            ]);
-            return redirect()->route('item.index', $id)->with('success', 'Edited successfully!' );
+            ];
+            $this->items->updateItem($data, $id);
+            return redirect()->route('item.index')->with('success', 'Edited successfully!' );
         }
 
         public function delete($id)
         {
-            item::where('id', $id)->delete();
+            $this->items->deleteItem($id);
             return redirect()->route('item.index')->with('success', 'Deleted successfully');
         }
     }

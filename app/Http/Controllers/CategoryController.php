@@ -7,9 +7,16 @@
 
     class CategoryController extends Controller
     {
+        private $categories;
+
+        public function __construct()
+        {
+            $this->categories = new category();
+        }
+
         public function index()
         {
-            $categories = category::all();
+            $categories = $this->categories->allCategory();
             return view('category.list', compact('categories'));
         }
 
@@ -24,15 +31,16 @@
                 'category_name' =>'required'
             ]);
 
-            category::create([
+            $data = [
                 'category_name' =>$request->category_name,
-            ]);
+            ];
+            $this->categories->addCategory($data);
             return redirect()->route('category.index')->with('success', 'Created successfully!');
         }
 
         public function edit($id)
         {
-            $categories = category::find($id);
+            $categories = $this->categories->findID($id);
             return view('category.edit', compact('categories'));
         }
 
@@ -42,15 +50,16 @@
                 'category_name' =>'required'
             ]);
 
-            category::where('id', $id)->update([
+            $data = [
                 'category_name' =>$request->category_name,
-            ]);
-            return redirect()->route('category.index', $id)->with('success', 'Edited successfully!');
+            ];
+            $this->categories->updateCategory($data, $id);
+            return redirect()->route('category.index')->with('success', 'Edited successfully!');
         }
 
         public function delete($id)
         {
-            category::where('id', $id)->delete();
+            $this->categories->deleteCategory($id);
             return redirect()->route('category.index')->with('success', 'Deleted successfully');
         }
     }

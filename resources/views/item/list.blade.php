@@ -22,7 +22,7 @@
                             class="btn btn-primary btn-sm">Edit</button></a>
                 </td>
                 <td>
-                    <a href="{{ route('item.delete', $item->id) }}"><button type="button"
+                    <a href="{{ route('item.delete', $item->id) }}" onclick="return myFunction();"><button type="button"
                             class="btn btn-primary btn-sm">Delete</button></a>
                 </td>
             </tr>

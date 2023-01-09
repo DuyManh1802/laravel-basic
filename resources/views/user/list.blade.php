@@ -22,7 +22,7 @@
                             class="btn btn-primary btn-sm">Change Password</button></a>
                 </td>
                 <td>
-                    <a href="{{ route('user.delete', $user->id) }}"><button type="button"
+                    <a href="{{ route('user.delete', $user->id) }}" onclick="return myFunction();"><button type="button"
                             class="btn btn-primary btn-sm">Delete</button></a>
                 </td>
             </tr>

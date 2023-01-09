@@ -9,9 +9,16 @@
 
     class UserController extends Controller
     {
+        private $user;
+
+        public function __construct()
+        {
+            $this->user = new User();
+        }
+
         public function index()
         {
-            $users = User::all();
+            $users = $this->user->allUser();
             return view('user.list', compact('users'));
         }
 
@@ -28,17 +35,20 @@
                 'password' => 'min:8|string|max:32|confirmed',
             ]);
 
-            User::create([
-                'name' =>$request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password)
-            ]);
+            $data = [
+                $request->name,
+                $request->email,
+                Hash::make($request->password),
+                date('Y-m-d H:i:s')
+            ];
+
+            $this->user->addUser($data);
             return redirect()->route('user.list')->with('success', 'Created successfully!' );
         }
 
         public function edit($id)
         {
-            $users = User::find($id);
+            $users = $this->user->findID($id);
             return view('user.edit', compact('users'));
         }
 
@@ -47,45 +57,18 @@
             $this->validate($request, [
                 'name' =>'required',
             ]);
-            $users = User::find($id);
             $data = [
                 'name' => $request->name,
+                date('Y-m-d H:i:s')
             ];
-
-            $users->update($data);
-            return redirect()->route('user.list', $users->id)->with('success', 'Updated successfully!');
-        }
-
-        public function changePassword($id)
-        {
-            $users = User::find($id);
-            return view('user.changePassword', compact('users'));
-        }
-
-        public function changePasswordSave(Request $request, $id)
-        {
-            $this->validate($request, [
-                'current_password' => 'required|string',
-                'new_password' => 'required|confirmed|min:8|string'
-            ]);
-            $users = User::find($id);
-            if (!Hash::check($request->get('current_password'), $users->password)){
-                return back()->with('error', "Current Password is Invalid");
-            }
-
-            if (strcmp($request->get('current_password'), $request->new_password) == 0){
-                return redirect()->back()->with("error", "New Password cannot be same as your current password.");
-            }
-
-            $users->password = Hash::make($request->new_password);
-            $users->save();
-            return redirect()->route('user.list', $users->id)->with('success', "Password Changed Successfully");
+            $this->user->updateUser($data, $id);
+            return redirect()->route('user.list')->with('success', 'Updated successfully!');
         }
 
         public function delete($id)
         {
-            User::where('id', $id)->delete();
-            return redirect()->route('user.list', $id)->with('success', 'Deleted successfully!' );
+            $this->user->deleteUser($id);
+            return redirect()->route('user.list')->with('success', 'Deleted successfully!' );
         }
     }
 ?>

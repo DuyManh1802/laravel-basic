@@ -5,7 +5,7 @@
         <div class="card-header">{{ __('Edit Profile') }}</div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route('user.update', $users->id) }}">
+            <form method="POST" action="{{ route('user.update') }}">
                 @csrf
                 @method('put')
                 <div class="row mb-3">
@@ -13,8 +13,7 @@
 
                     <div class="col-md-6">
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                            name="name" value="{{ $users->name }}" required autocomplete="name" autofocus>
-
+                            name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -28,7 +27,7 @@
 
                     <div class="col-md-6">
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                            name="email" value="{{ $users->email }}">
+                            name="email" value="{{ old('email') }}">
 
                         @error('email')
                         <span class="invalid-feedback" role="alert">
