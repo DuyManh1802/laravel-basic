@@ -47,6 +47,7 @@ class User extends Authenticatable
     public function allUser()
     {
         $users = DB::select('SELECT * fROM '.$this->table.' ORDER BY created_at DESC');
+
         return $users;
     }
 
@@ -63,6 +64,7 @@ class User extends Authenticatable
     public function updateUser($data, $id)
     {
         $data[] = $id;
+
         return DB::update('UPDATE '.$this->table.' SET name = ?, email = ?, updated_at = ? WHERE id = ?', $data);
     }
 

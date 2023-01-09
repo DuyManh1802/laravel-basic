@@ -24,6 +24,7 @@ class Category extends Model
     public function allCategory()
     {
         $category = DB::select('SELECT * fROM '.$this->table.' ORDER BY created_at DESC');
+
         return $category;
     }
 
@@ -40,6 +41,7 @@ class Category extends Model
     public function updateCategory($data, $id)
     {
         $data[] = $id;
+
         return DB::update('UPDATE '.$this->table.' SET category_name = ?, updated_at = ?', $data);
     }
 

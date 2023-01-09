@@ -17,12 +17,14 @@
         public function index()
         {
             $items = $this->items->allItem();
+
             return view('item.list', compact('items'));
         }
 
         public function create()
         {
             $categories = category::all();
+
             return view('item.create', compact('categories'));
         }
 
@@ -39,12 +41,14 @@
                 date('Y-m-d H:i:s')
             ];
             $this->items->addItem($data);
+
             return redirect()->route('item.index')->with('success', 'Created successfully!' );
         }
 
         public function edit($id)
         {
             $items = $this->items->findID($id);
+
             return view('item.edit', compact('items'));
         }
 
@@ -58,12 +62,14 @@
                 'item_name' =>$request->item_name,
             ];
             $this->items->updateItem($data, $id);
+
             return redirect()->route('item.index')->with('success', 'Edited successfully!' );
         }
 
         public function delete($id)
         {
             $this->items->deleteItem($id);
+
             return redirect()->route('item.index')->with('success', 'Deleted successfully');
         }
     }

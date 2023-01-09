@@ -17,6 +17,7 @@
         public function index()
         {
             $categories = $this->categories->allCategory();
+
             return view('category.list', compact('categories'));
         }
 
@@ -37,12 +38,14 @@
 
             ];
             $this->categories->addCategory($data);
+
             return redirect()->route('category.index')->with('success', 'Created successfully!');
         }
 
         public function edit($id)
         {
             $categories = $this->categories->findID($id);
+
             return view('category.edit', compact('categories'));
         }
 
@@ -56,12 +59,14 @@
                 'category_name' =>$request->category_name,
             ];
             $this->categories->updateCategory($data, $id);
+
             return redirect()->route('category.index')->with('success', 'Edited successfully!');
         }
 
         public function delete($id)
         {
             $this->categories->deleteCategory($id);
+
             return redirect()->route('category.index')->with('success', 'Deleted successfully');
         }
     }

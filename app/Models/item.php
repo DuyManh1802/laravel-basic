@@ -25,6 +25,7 @@ class Item extends Model
     public function allItem()
     {
         $item = DB::select('SELECT * fROM '.$this->table.' ORDER BY created_at DESC');
+
         return $item;
     }
 
@@ -41,6 +42,7 @@ class Item extends Model
     public function updateItem($data, $id)
     {
         $data[] = $id;
+
         return DB::update('UPDATE '.$this->table.' SET name = ?, updated_at = ?', $data);
     }
 

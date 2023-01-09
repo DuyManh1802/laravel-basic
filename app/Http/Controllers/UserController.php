@@ -19,6 +19,7 @@
         public function index()
         {
             $users = $this->user->allUser();
+
             return view('user.list', compact('users'));
         }
 
@@ -43,12 +44,14 @@
             ];
 
             $this->user->addUser($data);
+
             return redirect()->route('user.list')->with('success', 'Created successfully!' );
         }
 
         public function edit($id)
         {
             $users = $this->user->findId($id);
+
             return view('user.edit', compact('users'));
         }
 
@@ -64,12 +67,14 @@
                 date('Y-m-d H:i:s')
             ];
             $this->user->updateUser($data, $id);
+
             return back()->with('success', 'Updated successfully!');
         }
 
         public function delete($id)
         {
             $this->user->deleteUser($id);
+
             return back()->with('success', 'Deleted successfully!' );
         }
     }
